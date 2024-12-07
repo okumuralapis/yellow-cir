@@ -5,12 +5,13 @@ from PyQt6 import uic
 from PyQt6.QtCore import QPointF
 from PyQt6.QtGui import QPainter, QColor
 from PyQt6.QtWidgets import QApplication, QMainWindow
+from UI import Ui_MainWindow
 
 
-class Yellow(QMainWindow):
+class Yellow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)
+        self.setupUi(self)
         self.setWindowTitle('Git и желтые окружности')
         self.pushButton.clicked.connect(self.run)
         self.start_draw = False
@@ -25,7 +26,9 @@ class Yellow(QMainWindow):
             self.qp = QPainter()
             self.qp.begin(self)
             side = randint(20, 100)
-            self.qp.setBrush(QColor(255, 255, 0))
+            self.qp.setBrush(QColor(randint(0, 255),
+                                    randint(0, 255),
+                                    randint(0, 255)))
             self.qp.drawEllipse(QPointF(self.point[0], self.point[1]), side, side)
             self.qp.end()
 
